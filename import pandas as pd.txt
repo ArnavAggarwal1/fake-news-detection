@@ -1,0 +1,32 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+import pickle
+
+# Load data
+df_true = pd.read_csv('../data/True.csv')
+df_fake = pd.read_csv('../data/Fake.csv')
+
+df_true['label'] = 1
+df_fake['label'] = 0
+df = pd.concat([df_true, df_fake], ignore_index=True)
+
+# Clean text
+from src.preprocess import clean_text
+df['text_clean'] = df['text'].apply(clean_text)
+
+# Feature engineering (TF-IDF)
+from src.feature_engineering import tfidf_vectorize
+X, vectorizer = tfidf_vectorize(df, text_column='text_clean')
+y = df['label']
+
+# Train model
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+# Save model and vectorizer
+with open('../app/model.pkl', 'wb') as f:
+    pickle.dump(model, f)
+with open('../app/vectorizer.pkl', 'wb') as f:
+    pickle.dump(vectorizer, f)

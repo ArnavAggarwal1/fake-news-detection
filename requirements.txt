@@ -1,0 +1,14 @@
+pandas
+numpy
+scikit-learn
+nltk
+textblob
+matplotlib
+seaborn
+flask
+kaggle
+jupyter
+scipy
+tqdm
+xgboost
+spacy
