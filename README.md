@@ -86,6 +86,10 @@ The XGBoost model achieved the highest performance with:
 - F1-Score: 95%
 - ROC-AUC: 0.98
 
+## Contributors
+
+- Arnav Aggarwal
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
